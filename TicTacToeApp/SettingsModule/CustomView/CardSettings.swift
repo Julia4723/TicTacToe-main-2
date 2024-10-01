@@ -10,6 +10,8 @@ import UIKit
 
 final class CardSettings: UIView {
     
+    //MARK: - Private Property
+    
     private let xSkinView = UIImageView()
     private let oSkinView = UIImageView()
     
@@ -70,17 +72,20 @@ final class CardSettings: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupLayout() {
+    //MARK: - Private Methods
+    
+    private func setupLayout() {
         [ customImage, customButton, imageStack].forEach { subView in
             customView.addSubview(subView)
         }
     }
     
-    func setupStack(image: UIImageView) {
+    private func setupStack(image: UIImageView) {
         imageStack.addArrangedSubview(xSkinView)
         imageStack.addArrangedSubview(oSkinView)
     }
     
+    //MARK: - Layout
     private func setupConstraints() {
         
         NSLayoutConstraint.activate([

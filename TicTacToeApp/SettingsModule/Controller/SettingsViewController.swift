@@ -9,14 +9,14 @@
 import UIKit
 
 
-class SettingsViewController: UIViewController {
+final class SettingsViewController: UIViewController {
+    
+    //MARK: - Private Property
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()  // Контейнер для содержимого scrollView
     
     private let gameTimeView = GameTimeView()
-    
-    
     
     private var stackViewVertical: UIStackView = {
         let stackView = UIStackView()
@@ -38,14 +38,14 @@ class SettingsViewController: UIViewController {
     private lazy var horizontalStack2 = CardSettingsStack(cards: [card3, card4])
     private lazy var horizontalStack3 = CardSettingsStack(cards: [card5, card6])
     
+    
+    //MARK: - LifeCycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .systemBackground
         
-        // Настройка кнопки "Назад"
-        let backButton = UIBarButtonItem(title: "Назад", style: .plain, target: self, action: #selector(backButtonTapped))
-            navigationController?.topViewController?.navigationItem.leftBarButtonItem = backButton
         
         addViews()
         setupStackVertical()
@@ -53,10 +53,32 @@ class SettingsViewController: UIViewController {
         setupScrollView()
     }
     
-    @objc private func backButtonTapped() {
-        // Возвращаемся на предыдущий экран
-        navigationController?.popViewController(animated: true)
+    
+    
+    //MARK: - Private Methods
+    
+    private func setupGameView() {
+        gameTimeView.backgroundColor = .white
+        gameTimeView.layer.cornerRadius = 30
+        gameTimeView.layer.shadowColor = UIColor.black.cgColor
+        gameTimeView.layer.shadowOpacity = 0.2
+        gameTimeView.layer.shadowRadius = 16
+        gameTimeView.layer.shadowOffset = CGSize(width: 5, height: 5)
     }
+    
+    
+    private func addViews() {
+        
+        contentView.addSubview(gameTimeView)
+        contentView.addSubview(stackViewVertical)
+        
+        stackViewVertical.addArrangedSubview(horizontalStack1)
+        stackViewVertical.addArrangedSubview(horizontalStack2)
+        stackViewVertical.addArrangedSubview(horizontalStack3)
+    }
+    
+    
+    //MARK: - Layout
     
     private func setupScrollView() {
         
@@ -66,7 +88,7 @@ class SettingsViewController: UIViewController {
         scrollView.alwaysBounceVertical = true
         
         view.addSubview(scrollView)
-        scrollView.addSubview(contentView) // Весь контент будет добавлен в contentView внутри scrollView
+        scrollView.addSubview(contentView) // Добавлен контент в contentView внутри scrollView
         
         NSLayoutConstraint.activate([
             scrollView.topAnchor.constraint(equalTo: view.topAnchor),
@@ -82,24 +104,6 @@ class SettingsViewController: UIViewController {
         ])
     }
     
-    private func setupGameView() {
-        gameTimeView.backgroundColor = .white
-        gameTimeView.layer.cornerRadius = 30
-        gameTimeView.layer.shadowColor = UIColor.black.cgColor
-        gameTimeView.layer.shadowOpacity = 0.2
-        gameTimeView.layer.shadowRadius = 16
-        gameTimeView.layer.shadowOffset = CGSize(width: 5, height: 5)
-    }
-    
-    private func addViews() {
-        
-        contentView.addSubview(gameTimeView)
-        contentView.addSubview(stackViewVertical)
-        
-        stackViewVertical.addArrangedSubview(horizontalStack1)
-        stackViewVertical.addArrangedSubview(horizontalStack2)
-        stackViewVertical.addArrangedSubview(horizontalStack3)
-    }
     
     private func setupStackVertical() {
         gameTimeView.translatesAutoresizingMaskIntoConstraints = false
