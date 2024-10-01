@@ -47,6 +47,7 @@ final class GameTimeView: UIView, UITableViewDelegate, UITableViewDataSource {
         return tableView
     }()
     
+    
     // Варианты продолжительности времени
     private let durations = ["30 min", "60 min", "120 min"]
     
